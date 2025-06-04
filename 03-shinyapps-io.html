@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Deploying to Shinyapps.io – Intro to GitHub and ShinyApps.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Intro to GitHub and ShinyApps.io</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-shinyapps-io.html">Workshop 3. Deploying to Shinyapps.io</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-github-collaboration-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop 1. GitHub Collaboration Workflows</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-github-pages-actions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop 2. GitHub Pages and Actions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-shinyapps-io.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Workshop 3. Deploying to Shinyapps.io</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preparation/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparation and installation instructions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preparation/markdown-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markdown Reference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./practice/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practice/pr_review_practice_file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">file_to_review</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome-key-concepts" id="toc-welcome-key-concepts" class="nav-link active" data-scroll-target="#welcome-key-concepts">Welcome &amp; Key Concepts</a></li>
+  <li><a href="#install-rsconnect-and-set-up-your-shinyapps.io-account" id="toc-install-rsconnect-and-set-up-your-shinyapps.io-account" class="nav-link" data-scroll-target="#install-rsconnect-and-set-up-your-shinyapps.io-account">Install rsconnect and set up your Shinyapps.io account</a></li>
+  <li><a href="#run-a-shiny-app-locally" id="toc-run-a-shiny-app-locally" class="nav-link" data-scroll-target="#run-a-shiny-app-locally">Run a Shiny app locally</a></li>
+  <li><a href="#publish-using-shinyapps.io" id="toc-publish-using-shinyapps.io" class="nav-link" data-scroll-target="#publish-using-shinyapps.io">Publish using shinyapps.io</a></li>
+  <li><a href="#update-and-publish-cycle-with-shinyapps.io" id="toc-update-and-publish-cycle-with-shinyapps.io" class="nav-link" data-scroll-target="#update-and-publish-cycle-with-shinyapps.io">Update and publish cycle with Shinyapps.io</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Deploying to Shinyapps.io</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="welcome-key-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-key-concepts">Welcome &amp; Key Concepts</h2>
+<p><strong>Learning Objective:</strong> Understand how to deploy a Shiny app using ShinyApps.io, practice deploying an app, making a change, and registering and adjusting permissions from the dashboard.</p>
+<section id="shiny-and-shiny-applications-apps" class="level4">
+<h4 class="anchored" data-anchor-id="shiny-and-shiny-applications-apps">Shiny and Shiny applications (apps)</h4>
+<p>Shiny is an R package that allows you to quickly build interactive web apps with R.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/images/01_hello.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Shiny app with number of bins slider on the left and histogram of frequency of waiting times on the right”. Credit: Shiny.</figcaption>
+</figure>
+</div>
+<p>From the <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/">Shiny docs</a>:</p>
+<blockquote class="blockquote">
+<p>Shiny apps are contained in a single script called <code>app.R</code>. The script <code>app.R</code> lives in a directory (for example, <code>newdir/</code>) and the app can be run with <code>runApp("newdir")</code>.</p>
+<p><code>app.R</code> has three components:<br>
+- a user interface (<code>ui</code>) object, that controls the layout and appearance of your app<br>
+- a server function, that contains the instructions that your computer needs to build your app<br>
+- a call to the shinyApp function, which creates Shiny app objects from an explicit UI/server pair</p>
+</blockquote>
+<p>Note: Some apps may separate the app scripts into <code>ui.R</code> and <code>server.R</code> (such as the example app in this workshop)</p>
+<pre><code>library(shiny)
+
+# See above for the definitions of ui and server
+ui &lt;- ...
+
+server &lt;- ...
+
+shinyApp(ui = ui, server = server)</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Places to learn more
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Shiny: <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/">Shiny Basics</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="shinyapps.io" class="level4">
+<h4 class="anchored" data-anchor-id="shinyapps.io">Shinyapps.io</h4>
+<p>shinyapps.io is a platform that allows you to quickly publish and share Shiny applications on the web. From their user guide:</p>
+<blockquote class="blockquote">
+<p>The service runs in the cloud on shared servers that are operated by Posit. Each application is self-contained and operates on either data that is uploaded with the application, or data that the code pulls from third-party data stores, such as databases or web services.</p>
+</blockquote>
+<p>In the Province of BC we use Shinyapps.io to run many data-heavy applications in the public cloud, and we store the source code on GitHub. Here is one example:</p>
+<blockquote class="blockquote">
+<p><strong>shinywqg</strong> is a Shiny application to run the B.C. Ambient Water Quality Guidelines. Guidelines are determined based on information from the BC Data Catalogue.</p>
+</blockquote>
+<p>Shiny App: <a href="https://bcgov-env.shinyapps.io/bc_wqg/">https://bcgov-env.shinyapps.io/bc_wqg/</a><br>
+GitHub Repo: <a href="https://github.com/bcgov/shinywqg">https://github.com/bcgov/shinywqg</a></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Places to learn more
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Shinyapps.io <a href="https://docs.posit.co/shinyapps.io/guide/">User Guide</a></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="install-rsconnect-and-set-up-your-shinyapps.io-account" class="level2">
+<h2 class="anchored" data-anchor-id="install-rsconnect-and-set-up-your-shinyapps.io-account">Install rsconnect and set up your Shinyapps.io account</h2>
+<section id="activity-set-up-rsconnect-and-shinyapps.io-account" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-set-up-rsconnect-and-shinyapps.io-account"><strong>Activity</strong>: Set up rsconnect and shinyapps.io account</h4>
+</section>
+<p>It is a good idea to do this before the workshop if possible.</p>
+<section id="installing-rsconnect" class="level5">
+<h5 class="anchored" data-anchor-id="installing-rsconnect">1. Installing rsconnect</h5>
+<p>Before you start, you need to ensure you have the <code>rsconnect</code> R package from CRAN installed. You can run the following command in your console to check:</p>
+<pre><code>library(rsconnect)</code></pre>
+<p>If you get no messages or just a warning about <code>rsconnect</code> being built under a different R version, you should be able to proceed. Skip ahead to creating shinyapps.io account</p>
+<p>However, if you get an Error that says “there is no package called ‘rsconnect’” then you will need to do a side quest to install <code>rsconnect</code>.</p>
+<p>First, try to install it the usual way:</p>
+<pre><code>install.packages(rsconnect)</code></pre>
+<p>If you get a note about needing to install Rtools, then you would need to do that before you can install <code>rsconnect</code>. Go to <a href="https://cran.r-project.org/bin/windows/Rtools/">this page</a> and select the version that corresponds with your R version. (Hint: RStudio displays your version of R in your “Console” tab, right below the tabs.) The next paragraph assumes you are using R 4.4.0 or later and will be using <code>rtools44</code>.</p>
+<p>The easiest way to install is to use the <code>.exe</code> file on the page; it’s linked as “Rtools44 installer”. After you download it, run the <code>.exe</code> file and use all defaults, especially the install location set to <code>C:\rtools44</code>.</p>
+<p>Once that is done, restart RStudio and try to load the rsconnect library again.</p>
+</section>
+<section id="creating-shinyapps.io-account" class="level5">
+<h5 class="anchored" data-anchor-id="creating-shinyapps.io-account">2. Creating shinyapps.io account</h5>
+<p>To access shinyapps.io, go to <a href="https://www.shinyapps.io/">https://www.shinyapps.io/</a>. If you already have an account, you can just click Log in on the top right. Otherwise, click on “Sign Up”.</p>
+<p>To access shinyapps.io, go to <a href="https://www.shinyapps.io/" class="uri">https://www.shinyapps.io/</a>. If you already have an account, you can just click Log in on the top right. Otherwise, click on “Sign Up”.</p>
+<p>You will have the option to create a sign-up based on your email &amp; password, or you can create an account based using one of the three options listed below for authentication (Google, GitHub, Clever). Using your GitHub account might be the most convenient, especially if you already set it up for government use because then there will be login based on IDIR and two-factor authentication.</p>
+<p>If you choose to create your own login based on email &amp; password, we recommend using your gov.bc.ca email and then creating a distinct password (do not use the same password as any other government app, especially your IDIR password).</p>
+<p>Note that one single shinyapps.io account can be used to access different “domains” that can host shiny apps online. You will be asked to set up your account when you first log in and your default free domain has the same name as your account name. For example, if you choose the account name <code>blork</code> then your shiny apps will have the url of <code>https://blork.shinyapps.io/app_name/</code>.</p>
+<p>You will use this same shinyapps.io account for other domains as well, such as the professional domain called <code>bcgov-env</code>, which is run by ENV and FOR teams. This is the domain where some of our final apps will be deployed. This is why it is good to use a government-based credential to access all of your government shiny work. You might want to create a separate account for personal shiny projects. You can run this workshop in either a work or personal use account.</p>
+<p>Now you have everything set up for the workshop! You will configure your <code>rsconnect</code> to publish to your shinyapps.io domain in one of the activities below.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>shinyapps.io User Guide: <a href="https://docs.posit.co/shinyapps.io/guide/getting_started/">Getting Started</a></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="run-a-shiny-app-locally" class="level2">
+<h2 class="anchored" data-anchor-id="run-a-shiny-app-locally">Run a Shiny app locally</h2>
+<section id="activity-prepare-your-files-test-and-run-a-shiny-app-with-rstudio" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-prepare-your-files-test-and-run-a-shiny-app-with-rstudio"><strong>Activity</strong>: Prepare your files, test, and run a Shiny app with RStudio</h4>
+</section>
+<p>You will always want to ensure you can run your shiny app locally before you publish to the shinyapps.io platform.</p>
+<p>To start, you will need to have the files for the ShinyApp ready on your local machine. We have an example ready on a branch called <code>shiny-app</code>, so you just need to clone the workshop repository and make sure it is up to date.</p>
+<p>Once you have checked-out the <code>shiny-app</code> branch, open the project in RStudio and open the app folder and browse the files. See if you can run the Shiny app locally.</p>
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header anchored" id="heading1">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+        <strong>Detailed Steps</strong>
+      </button>
+    </h2>
+    <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+        <ol>
+          <li>Open either the <code>ui.R</code> or <code>server.R</code> file in the <code>app</code> folder in RStudio</li>
+          <li>In the top right of your file pane, click on the "Run App" button.</li>
+          <li>App opens in a RStudio dialog box. You can also open in browser (still run locally)</li>
+          <li>Adjust the widgets to interact with the app</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Shiny: <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/">Shiny Basics</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="publish-using-shinyapps.io" class="level2">
+<h2 class="anchored" data-anchor-id="publish-using-shinyapps.io">Publish using shinyapps.io</h2>
+<section id="activity-publish-your-shiny-app-using-shinyapps.io" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-publish-your-shiny-app-using-shinyapps.io"><strong>Activity</strong>: Publish your Shiny app using shinyapps.io</h4>
+</section>
+<p>Next, we are going to publish the app to our <strong>personal</strong> Shinyapps.io accounts (i.e.&nbsp;the free, basic domain created earlier in this workshop). You then have to configure the <code>rsconnect</code> package on your local machine to publish to it by getting a token and secret from shinyaps.io which allows <code>rsconnect</code> to access your account. Then we will publish or “deploy” the app from RStudio.</p>
+<p>Posit has already provided <a href="https://docs.posit.co/shinyapps.io/guide/getting_started/#configure-rsconnect">detailed instructions</a>, with screenshots, on how to get your shinyapps.io token and configure <code>rsconnect</code> to use that token to access shinyapps.io in RStudio. You can use either Method 1 or Method 2 on that page.</p>
+<p>You only have to do this once per R/RStudio install on your machine.</p>
+<p>After following those steps, see if you can “Publish” your shiny app to the shinyapps.io platform.</p>
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header anchored" id="heading2">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+        <strong>Detailed Steps</strong>
+      </button>
+    </h2>
+    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+        <ol>
+          <li>Open either the <code>ui.R</code> or <code>server.R</code> file in the <code>app</code> folde</li>
+          <li>In the upper right corner of your file pane, click on "Publish". It is to the right of the "Run App" button and has a blue icon</li>
+          <li>A dialog box appears. Fill in all the required details. Take note of the following for future reference:</li>
+            <ul>
+              <li>The left side allows you to choose which files to publish (or not publish)</li>
+              <li>Ensure you have the correct Account selected on the right side</li>
+              <li>You need a name that is at least 4 alphanumeric characters (no spaces). The name chosen will be part of the URL to access your app from the internet</li>
+            </ul>
+          <li>Click on "Publish"</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<p>That’s it! You’ve published a Shiny app to Shinyapps.io!</p>
+<p>When you click “Publish”, it may take some time for the deployment to complete. A new tab in your Console pane called “Deploy” will appear in the lower left. It’s a good idea to read it as it gives you an idea of all the steps it takes. You will see that behind the scenes, it is creating a unique environment on shinyapps.io server for you, installing all the required packages to run your application and then installing all the files and then runs the app!</p>
+<p>This order is important: the packages are installed only on deployment (once only) before any files are run. When the app is running, it should not be able to modify its own install environment. Therefore, you cannot have <code>install.packages()</code> commands within your shiny app because everything must be installed before the first run. Instead, load them with <code>library()</code>. The deployment process looks for <code>library()</code> calls and installs these packages on deployment. Most apps will be able to run on shinyapps.io without much modification.</p>
+<p>For more details, see <a href="https://docs.posit.co/shinyapps.io/guide/getting_started/#using-your-r-packages-in-the-cloud">this section</a> in the Getting Started guide.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Shinyapps.io <a href="https://docs.posit.co/shinyapps.io/guide/getting_started/">Getting Started</a></li>
+</ul>
+</div>
+</div>
+<section id="advanced-configuration-options-demo" class="level4">
+<h4 class="anchored" data-anchor-id="advanced-configuration-options-demo">Advanced configuration options (Demo)</h4>
+<p><em>Note: this activity requires a shinyapps.io pro account so we will just demo.</em></p>
+<p>For our purposes we will want to restrict the Shiny app to only Meteorologists, so we will make use of a feature from the Shinyapps.io pro version: Authentication, that we will demonstrate now.</p>
+<p>You can navigate and see the same features with your Free account, but you will see that most options are locked. However, some features such as Metrics and Logs are available to Free users as well.</p>
+</section>
+</section>
+<section id="update-and-publish-cycle-with-shinyapps.io" class="level2">
+<h2 class="anchored" data-anchor-id="update-and-publish-cycle-with-shinyapps.io">Update and publish cycle with Shinyapps.io</h2>
+<section id="activity-make-a-change-and-re-publish-your-shiny-app" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-make-a-change-and-re-publish-your-shiny-app"><strong>Activity</strong>: Make a change and re-publish your Shiny app</h4>
+</section>
+<p>What happens if you need to make a change? We have seen this with the Quarto website for this workshop series and our workshop last week with a Quarto site. By default, once we make a change it isn’t automatically published. Let’s cover manually re-publishing.</p>
+<p>If you are still running the app locally, stop running it. Make a change (it can be something small such as changing the title of the app on line 7 in <code>ui.R</code>) and then check to see that it runs locally. Look at the Shinyapps.io version: it hasn’t updated there. We need to re-publish the app to see those changes.</p>
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header anchored" id="heading3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+        <strong>Detailed Steps</strong>
+      </button>
+    </h2>
+    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+        <ol>
+          <li>Make sure you are not running the app locally</li>
+          <li>Open the app on shinyapps.io (e.g. `https://[your-account].shinyapps.io/[app-name]/`)
+          </li><li>In RStudio, for a simple edit, go to Line 7 of the `server.R` file</li>
+          <li>Edit the "Iris k-means clustering" string to something else</li>
+          <li>Save the file.</li>
+          <li>Run the app locally from RStudio. Confirm the change. Close app.</li>
+          <li>Refresh the shinyapps.io page in your web browser. Confirm that no change made</li>
+          <li>Re-publish your app to shinyapps.io. Click on the "Republish" button. Now you should see the change</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<p><em>Note: After the first Publish, the “Publish” button in RStudio becomes “Republish” and will automatically use the same settings if you click it, without opening a dialog box. If you want to change deployment/publication settings (such as account or app name), then you have to use the down arrow next to the button to expand a menu for more options.</em></p>
+<p><strong>Clean up:</strong> The above edits are changes to a version-controlled file in the <code>shiny_app</code> branch. However, if you commit and push to the branch, it will change the same app file for everyone. So, we do not want to keep these changes. You can do nothing and your local version will just be out of sync with the GitHub, not the end of the world. If you want to reset your local to the same state as the GitHub repo, you need to <em>discard</em> your changes to the <code>ui.R</code> file:</p>
+<ul>
+<li>In GitHub desktop, you will see the file listed under “Changes”. Right click <code>ui.R</code> and choose “Discard changes”</li>
+<li>In RStudio, you can see the file listed in the Git pane (upper right). Right click <code>ui.R</code> and choose “Revert”. (Note: Do not choose “ignore”, this will add it to Gitignore, but keep the changes).</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Shinyapps.io <a href="https://docs.posit.co/shinyapps.io/guide/getting_started/">Getting Started</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/bcgov\.github\.io\/intro-to-github-shinyapps\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

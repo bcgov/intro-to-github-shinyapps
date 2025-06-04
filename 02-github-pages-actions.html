@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>GitHub Pages and Actions – Intro to GitHub and ShinyApps.io</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Intro to GitHub and ShinyApps.io</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-github-pages-actions.html">Workshop 2. GitHub Pages and Actions</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-github-collaboration-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop 1. GitHub Collaboration Workflows</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-github-pages-actions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Workshop 2. GitHub Pages and Actions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-shinyapps-io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Workshop 3. Deploying to Shinyapps.io</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preparation/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preparation and installation instructions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preparation/markdown-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markdown Reference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./practice/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practice/pr_review_practice_file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">file_to_review</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome-key-concepts" id="toc-welcome-key-concepts" class="nav-link active" data-scroll-target="#welcome-key-concepts">Welcome &amp; Key Concepts</a></li>
+  <li><a href="#create-a-quarto-website" id="toc-create-a-quarto-website" class="nav-link" data-scroll-target="#create-a-quarto-website">Create a Quarto Website</a></li>
+  <li><a href="#publish-it-to-github-pages" id="toc-publish-it-to-github-pages" class="nav-link" data-scroll-target="#publish-it-to-github-pages">Publish it to GitHub Pages</a></li>
+  <li><a href="#automate-publishing-with-github-actions-advanced" id="toc-automate-publishing-with-github-actions-advanced" class="nav-link" data-scroll-target="#automate-publishing-with-github-actions-advanced">Automate publishing with GitHub Actions (Advanced)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GitHub Pages and Actions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="welcome-key-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-key-concepts">Welcome &amp; Key Concepts</h2>
+<p><strong>Learning Objective:</strong> Explore GitHub Pages and Actions and how they can work together to publish website site. Practice by publishing a Quarto site using your own GitHub account.</p>
+<p><em>Note: These are advanced topics. We are hosting this give some insight into how the pieces fit together but these tasks are not indicative of what you will be required to do in the new system.</em></p>
+<section id="publishing-a-web-site" class="level4">
+<h4 class="anchored" data-anchor-id="publishing-a-web-site">Publishing a web site</h4>
+<p>We likely all browse the web and most of us have published content on it. Outside of work you probably have used social media platforms (like YouTube, Facebook, Instagram) to publish photos, posts, or videos and other media. You may even have your own blog using a service like Wordpress.com or Ghost.com.</p>
+<p>You may not have published a full web site before. It can get complex, but we want to mention provide a simple overview of parts that are typically present:</p>
+<ul>
+<li>a domain name (the human-readable address)</li>
+<li>a server or host (the place)</li>
+<li>application or files (the content of the web site itself)</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Places to learn more
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website">Mozilla MDN Web Docs: Your first website</a></li>
+<li><a href="https://glitch.com/?ref=NODESK">Glitch</a>, allows you to remix (basically fork) projects to build websites from the browser</li>
+<li><a href="https://neocities.org/">Neocities</a>, also has all the tools to build a website in the browser</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="quarto-websites" class="level4">
+<h4 class="anchored" data-anchor-id="quarto-websites">Quarto Websites</h4>
+<p>We already know Quarto is a <em>system</em> for scientific and technical publishing. It allows you to do a lot.</p>
+<p>One thing it does is make it easy to <a href="https://quarto.org/docs/websites/">create websites</a> for <em>document</em>-focused content (like a series of statements or bulletins) and streamline some steps to publish on the web. It does not work well for other types of content (say lots of videos or images) or for web sites that are heavily interactive.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://quarto.org/docs/websites/images/rstudio-project-website-preview.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Quarto website rendered in RStudio. Credit: Posit.</figcaption>
+</figure>
+</div>
+</section>
+<section id="github-pages" class="level4">
+<h4 class="anchored" data-anchor-id="github-pages">GitHub Pages</h4>
+<p>Like Quarto, GitHub also allows you to do a lot of different collaborative activities around a repository. <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">GitHub Pages</a> is a free way to publish a web sites, <em>but only for the contents of a GitHub repository</em>.</p>
+<p>It helps with all the three parts you need:</p>
+<ul>
+<li>a domain name ✔️ by default, it looks like: <code>&lt;https://[USER/ORG NAME].github.io/[REPO NAME]/&gt;</code></li>
+<li>a server or host ✔️ for free!</li>
+<li>application or files ✔️ the contents of the repository!</li>
+</ul>
+<p>Plus it also gives us the advantages of working with git and GitHub we talked about last workshop! You automatically keep a record of preious versions of the website, you can use the GitHub collaboration features to work together on changes, fixes or identify issues</p>
+<p>Imagine you have a big box where you keep all your drawings and stories. That box is like GitHub. You can put all sorts of things in there, like pictures, words, and even instructions for making a game.</p>
+<p>Now, imagine you want to share your drawings and stories with your friends. GitHub Pages is like a special window you can put in your box. When you put your drawings and stories behind the window, your friends can come and look at them!</p>
+<p>So, GitHub is like your big box for keeping things, and GitHub Pages is like a special window for showing your things to your friends. It’s a way to share your creations with the world!</p>
+</section>
+<section id="github-actions" class="level4">
+<h4 class="anchored" data-anchor-id="github-actions">GitHub Actions</h4>
+<p>One more of those things that GitHub provides are GitHub Actions (or workflows), these allow us to automate repeatable steps or actions also anchored to a repository.</p>
+<p>Actions are powerful and can get complex. Some other similar examples you may have encountered: Microsoft Power Automate flows, cron jobs</p>
+<p>They are sort of like recipes: you describe the ingredients you need and then actions to take with those ingredients.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://deborah-digges.github.io/static/9b744b8c9b4762772e9dae014695be59/5a190/github-action-components.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Drawing of a GitHub Action workflow. Credit: Deborah Digges.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Places to learn more
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-with-github-actions">GitHub: Examples of deploying with GitHub Actions</a></li>
+<li><a href="https://deborah-digges.github.io/2020/10/14/Building-a-Github-action/">Deborah Digges: Building a GitHub Action</a></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="create-a-quarto-website" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-quarto-website">Create a Quarto Website</h2>
+<section id="activity-create-a-new-quarto-website-project-and-add-the-code-to-github" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-create-a-new-quarto-website-project-and-add-the-code-to-github"><strong>Activity</strong>: Create a new Quarto website project and add the code to GitHub</h4>
+</section>
+<p>To start, you will need to create your own website project, all the files for that website in a git repo, then host that repository via GitHub.</p>
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header anchored" id="heading1">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+        <strong>Detailed Steps</strong>
+      </button>
+    </h2>
+    <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+        <ol>
+          <li>Using RStudio: Select New Project and follow the wizard to select "Quarto Website"</li>
+          <li>Enter a directory name <em>and create a git repository</em></li>
+          <li>Make the website your own, you can change the text or title of a page</li>
+          <li>Click the render button to preview the website locally and ensure you are happy with it</li>
+          <li>Switch to GitHub Desktop (or from RStudio) commit all those files and push them to GitHub.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Alternatively, if you want to skip this step, you can go to this template: <a href="https://github.com/dawnbcgov/example-website">https://github.com/dawnbcgov/example-website</a> and make a copy or <strong>fork</strong> the repo</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Quarto: <a href="https://quarto.org/docs/websites/">Creating a Website</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="publish-it-to-github-pages" class="level2">
+<h2 class="anchored" data-anchor-id="publish-it-to-github-pages">Publish it to GitHub Pages</h2>
+<p>There is more than one way to publish a website using Quarto to GitHub Pages. Today we’re going to use a mix of the built-in <code>publish</code> command and GitHub Actions to automate ongoing updates.</p>
+<section id="activity-use-publish-to-publish-a-new-site-for-the-first-time" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-use-publish-to-publish-a-new-site-for-the-first-time"><strong>Activity</strong>: Use <code>publish</code> to publish a new site for the first time</h4>
+</section>
+<p>The <code>quarto publish</code> command is an easy way to publish locally rendered documents and websites. First we have to enable some GitHub Pages options from the browser, so start at: <code>&lt;https://github.com/[USER NAME]/[REPO NAME]/settings/pages&gt;</code> (this URL will be specific to your repository)</p>
+<p>After that, we are going to set up GitHub Pages to render all the site contents from our <code>main</code> branch into a website that is served from the <code>gh-pages</code> branch! (The name <code>gh-pages</code> is a convention used because “gh” is short for GitHub I guess).</p>
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header anchored" id="heading2">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+        <strong>Detailed Steps</strong>
+      </button>
+    </h2>
+    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+        <ol>
+          <li>Follow <a href="https://quarto.org/docs/publishing/github-pages.html#publish-command">the instructions from Quarto</a> to set the <em>source branch</em> to <code>gh-pages</code> and the site directory to <em>root (/)</em></li>
+          <li>Add the output directory of your project (/_site/) to <code>.gitignore</code> so you don't accidentally commit all of the site output files to the main branch you are working in. (we can chat more about this)</li>
+          <li>From RStudio open a terminal (Tools &gt; Terminal &gt; New Terminal) and type <code>quarto publish gh-pages</code>.</li>
+          <li>Follow the command line prompts, you may be prompted to log-in to GitHub before it publishes.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Great! Now after every change we can manually publish an updated version of the site! What about if we want to not worry about this step? We can use an action to automate it.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Quarto: <a href="https://quarto.org/docs/publishing/github-pages.html">Publishing &gt; GitHub Pages</a></li>
+<li>HKUST Digital Humanities: <a href="https://digitalhumanities.hkust.edu.hk/tutorials/how-to-host-your-website-on-github-page/">How to host your website on GitHub Page</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="automate-publishing-with-github-actions-advanced" class="level2">
+<h2 class="anchored" data-anchor-id="automate-publishing-with-github-actions-advanced">Automate publishing with GitHub Actions (Advanced)</h2>
+<section id="activity-add-a-github-action-so-it-automagically-updates-on-every-change-advanced" class="level4 mark">
+<h4 class="anchored" data-anchor-id="activity-add-a-github-action-so-it-automagically-updates-on-every-change-advanced"><strong>Activity</strong>: Add a GitHub Action so it automagically updates on every change (Advanced)</h4>
+</section>
+<p>Once we have run that <code>publish</code> action locally once, we can set up an Action to re-publish (or re-build) the site as soon as a simple change was made.</p>
+<p>Remember how in the first workshop you only had to commit your change to the <code>main</code> branch and refresh the website to see the change show up in the sidebar? That was because an action in the background was re-building the site!</p>
+<p><em>Note: this is an advanced activity so it is okay to just follow along</em></p>
+<div class="accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header anchored" id="heading3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+        <strong>Detailed Steps</strong>
+      </button>
+    </h2>
+    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample" style="">
+      <div class="accordion-body">
+        <ol>
+          <li>Make sure you have run <code>quarto publish gh-pages</code> locally, once (you should have done this in the previous step).</li>
+          <li>Add a GitHub Action to your GitHub repo and project by creating a file at: <code>.github/workflows/publish.yml</code> (note the dot in the first folder, you will probably need to create those folders too!)</li>
+          <li>Copy the contents from the Quarto docs for the <a href="https://quarto.org/docs/publishing/github-pages.html#publish-action">Publish Action file</a></li>
+          <li>Afterwords, move to GitHub Desktop and add or check-in all the new files or changed files. Commit those, and push to GitHub.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Resources used
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Quarto: <a href="https://quarto.org/docs/publishing/github-pages.html">Publishing &gt; GitHub Pages</a></li>
+</ul>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/bcgov\.github\.io\/intro-to-github-shinyapps\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
